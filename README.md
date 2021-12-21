@@ -60,4 +60,4 @@ print(owner.tasks)
 
 - [Docs](https://python-sttask.readthedocs.io/en/latest/)
 - [Github](https://github.com/TheMystZ/python-sttask)
-- [Big tracker](https://github.com/TheMystZ/python-sttask/issues)
+- [Bug tracker](https://github.com/TheMystZ/python-sttask/issues)
