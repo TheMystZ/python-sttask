@@ -10,9 +10,9 @@
     - [sttask.TaskOwner.task_list() -> list](#sttask.taskowner.task_list)
     - [sttask.TaskOwner.schedule_list() -> list](#sttask.taskowner.schedule_list)
     - [sttask.TaskOwner.update() -> None](#sttask.taskowner.update)
-    - [sttask.TaskOwner.grab_task(name: str) -> int]()
-    - [sttask.TaskOwner.grab_schedule(name: str) -> int]()
-    - [sttask.TaskOwner.schedule(name: str, func, time: int, args: tuple = ()) -> int]()
+    - [sttask.TaskOwner.grab_task(name: str) -> int](#sttask.taskowner.grab_task)
+    - [sttask.TaskOwner.grab_schedule(name: str) -> int](#sttask.taskowner.grab_schedule)
+    - [sttask.TaskOwner.schedule(name: str, func, time: int = 0, args: tuple = ()) -> int](#sttask.taskowner.schedule)
     - [sttask.TaskOwner.play(task: str) -> None]()
     - [sttask.TaskOwner.pause(task: str) -> None]()
     - [sttask.TaskOwner.name_set(task: str, name: str) -> None]()
@@ -74,7 +74,7 @@ Then appends the task to [self.tasks](#sttask.taskowner.tasks).
 Raises a `TypeError` if `name` is not of `str` type.
 Raises a `TypeError` if `args` is not of `tuple` type.
 Raises a `TypeError` if `func` is not callable.
-Returns the index of the [Task](#sttask.task) in [self.tasks](#sttask.taskowner.tasks).
+Returns the index of the [task](#sttask.task) in [self.tasks](#sttask.taskowner.tasks).
 
 <a name="sttask.taskowner.task_list"></a>
 #### sttask.TaskOwner.task_list() -> list
@@ -135,6 +135,46 @@ Update the tasks and schedules in this instance of [sttask.TaskOwner](#sttask.ta
 Takes away 1 from schedule.time for all in [self.scheduled](#sttask.taskowner.scheduled) if the schedule is not paused.
 If a schedules time is 0, turn it into a task and put it in [self.tasks](#sttask.taskowner.tasks).
 Runs the update function on every task in [self.tasks](#sttask.taskowner.tasks) if the task is not paused.
+
+<a name="sttask.taskowner.grab_task"></a>
+#### sttask.TaskOwner.grab_task(name: str) -> int
+
+| Argument | Type  | Default |
+|----------|-------|---------|
+|`name`    |`str`  |         |
+
+Returns the index of the [task](#sttask.task) in [self.tasks](#sttask.taskowner.tasks) with the name `name`.
+Raises a `TypeError` if `name` is not of `str` type.
+If the function cannot find the task, `-1` is returned.
+
+<a name="sttask.taskowner.grab_schedule"></a>
+#### sttask.TaskOwner.grab_schedule(name: str) -> int
+
+| Argument | Type  | Default |
+|----------|-------|---------|
+|`name`    |`str`  |         |
+
+Returns the index of the [schedule](#sttask.schedule) in [self.scheduled](#sttask.taskowner.scheduled) with the name `name`.
+Raises a `TypeError` if `name` is not of `str` type.
+If the function cannot find the schedule, `-1` is returned.
+
+<a name="sttask.taskowner.schedule"></a>
+#### sttask.TaskOwner.schedule(name: str, func, time: int = 0, args: tuple = ()) -> int
+
+| Argument | Type  | Default |
+|----------|-------|---------|
+| name     | str   |         |
+| func     |       |         |
+| time     | int   | 0       |
+| args     | tuple | ()      |
+
+Created a schedule called `name` and sets it's update function to `func`, it's arguments to `args` and it's time to `time`.
+Then appends the schedule to [self.scheduled](#sttask.taskowner.scheduled).
+Raises a `TypeError` if `name` is not of `str` type.
+Raises a `TypeError` if `args` is not of `tuple` type.
+Raises a `TypeError` if `time` is not of `int` type.
+Raises a `TypeError` if `func` is not callable.
+Returns the index of the [schedule](#sttask.schedule) in [self.scheduled](#sttask.taskowner.scheduled).
 
 <a name="sttask.task"></a>
 ### sttask.Task
