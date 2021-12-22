@@ -127,6 +127,10 @@ eg.
 <a name="sttask.taskowner.update"></a>
 #### sttask.TaskOwner.update() -> None
 
+| Argument | Type  | Default |
+|----------|-------|---------|
+|          |       |         |
+
 Update the tasks and schedules in this instance of [sttask.TaskOwner](#sttask.taskowner).
 Takes away 1 from schedule.time for all in [self.scheduled](#sttask.taskowner.scheduled) if the schedule is not paused.
 If a schedules time is 0, turn it into a task and put it in [self.tasks](#sttask.taskowner.tasks).
