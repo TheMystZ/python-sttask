@@ -2,14 +2,14 @@
 
 ## Contents
 
-- [\_\_init\_\_]()
-  - [TaskOwner]()
-    - [sttask.TaskOwner.tasks: list]()
-    - [sttask.TaskOwner.scheduled: list]()
-    - [sttask.TaskOwner.add(name: str, func, args: tuple = ()) -> int]()
-    - [sttask.TaskOwner.task_list() -> list]()
-    - [sttask.TaskOwner.schedule_list() -> list]()
-    - [sttask.TaskOwner.sttask.TaskOwner.update() -> None]()
+- [sttask](#sttask)
+  - [TaskOwner](#sttask.taskowner)
+    - [sttask.TaskOwner.tasks: list](#sttask.taskowner.tasks)
+    - [sttask.TaskOwner.scheduled: list](#sttask.taskowner.scheduled)
+    - [sttask.TaskOwner.add(name: str, func, args: tuple = ()) -> int](#sttask.taskowner.add)
+    - [sttask.TaskOwner.task_list() -> list](#sttask.taskowner.task_list)
+    - [sttask.TaskOwner.schedule_list() -> list](#sttask.taskowner.schedule_list)
+    - [sttask.TaskOwner.update() -> None](#sttask.taskowner.update)
     - [sttask.TaskOwner.grab_task(name: str) -> int]()
     - [sttask.TaskOwner.grab_schedule(name: str) -> int]()
     - [sttask.TaskOwner.schedule(name: str, func, time: int, args: tuple = ()) -> int]()
@@ -42,3 +42,95 @@
   - [sttask.pause: int]()
 - [utils]()
   - [sttask.utils.convert(task, \*, schedule_time = 0)]()
+
+<a name="sttask"></a>
+## sttask
+The main module
+<a name="sttask.taskowner"></a>
+### sttask.TaskOwner
+A class for storing and managing tasks.
+    
+<a name="sttask.taskowner.tasks"></a>
+#### sttask.TaskOwner.tasks: list
+A list of all the tasks currently in this instance of [sttask.TaskOwner](#sttask.taskowner).
+Contains [sttask.Task](#sttask.task) objects.
+
+<a name="sttask.taskowner.scheduled"></a>
+#### sttask.TaskOwner.scheduled: list
+A list of all the schedules currently in this instance of [sttask.TaskOwner](#sttask.taskowner).
+Contains [sttask.Scheduled](#sttask.task) objects.
+
+<a name="sttask.taskowner.add"></a>
+#### sttask.TaskOwner.add(name: str, func, args: tuple = ()) -> int
+
+| Argument | Type  | Default |
+|----------|-------|---------|
+|`name`    |`str`  |         |
+|`func`    |       |         |
+|`args`    |`tuple`|`()`     |
+
+Created a task called `name` and sets it's update function to `func` and it's arguments to `args`.
+Then appends the task to [self.tasks](#sttask.taskowner.tasks).
+Raises a `TypeError` if `name` is not of `str` type.
+Raises a `TypeError` if `args` is not of `tuple` type.
+Raises a `TypeError` if `func` is not callable.
+Returns the index of the [Task](#sttask.task) in [self.tasks](#sttask.taskowner.tasks).
+
+<a name="sttask.taskowner.task_list"></a>
+#### sttask.TaskOwner.task_list() -> list
+
+| Argument | Type  | Default |
+|----------|-------|---------|
+|          |       |         |
+
+Returns a list of all the names of tasks in [self.tasks](#sttask.taskowner.tasks).
+eg.
+```python
+>>> import sttask
+>>> owner = sttask.TaskOwner()
+>>> owner.add("task1", (lambda self, args: print("This is task1")))
+0
+>>> owner.add("task2", (lambda self, args: print("This is task2")))
+1
+>>> owner.add("task3", (lambda self, args: print("This is task3")))
+2
+>>> owner.update()
+This is task1
+This is task2
+This is task3
+>>> owner.task_list()
+['task1', 'task2', 'task3']
+```
+
+<a name="sttask.taskowner.schedule_list"></a>
+#### sttask.TaskOwner.schedule_list() -> list
+
+| Argument | Type  | Default |
+|----------|-------|---------|
+|          |       |         |
+
+Returns a list of all the names of schedules in [self.scheduled](#sttask.taskowner.scheduled).
+eg.
+```python
+>>> import sttask
+>>> owner = sttask.TaskOwner()
+>>> owner.schedule("schedule1", (lambda self, args: print("This is schedule1")))
+0
+>>> owner.schedule("schedule2", (lambda self, args: print("This is schedule2")))
+1
+>>> owner.schedule("schedule3", (lambda self, args: print("This is schedule3")))
+2
+>>> owner.schedule_list()
+['schedule1', 'schedule2', 'schedule3']
+```
+
+<a name="sttask.taskowner.update"></a>
+#### sttask.TaskOwner.update() -> None
+
+Update the tasks and schedules in this instance of [sttask.TaskOwner](#sttask.taskowner).
+Takes away 1 from schedule.time for all in [self.scheduled](#sttask.taskowner.scheduled) if the schedule is not paused.
+If a schedules time is 0, turn it into a task and put it in [self.tasks](#sttask.taskowner.tasks).
+Runs the update function on every task in [self.tasks](#sttask.taskowner.tasks) if the task is not paused.
+
+<a name="sttask.task"></a>
+### sttask.Task
