@@ -41,4 +41,4 @@
   - [sttask.end: int]()
   - [sttask.pause: int]()
 -[utils]()
-  - [sttask.utils.convert(task, \*, schedule_time = 0)]
+  - [sttask.utils.convert(task, \*, schedule_time = 0)]()
