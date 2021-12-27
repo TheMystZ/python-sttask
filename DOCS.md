@@ -26,28 +26,64 @@
     - [sttask.TaskOwner.update_set_schedule(schedule: str, func) -> None](#sttask.taskowner.update_set_schedule)
     - [sttask.TaskOwner.args_set_schedule(schedule: str, args: tuple) -> None](#sttask.taskowner.args_set_schedule)
     - [sttask.TaskOwner.pop_schedule(schedule: str) -> None](#sttask.taskowner.pop_schedule)
-  - [Task]()
-    - [sttask.Task.name]()
-    - [sttask.Task.update]()
-    - [sttask.Task.paused]()
-    - [sttask.Task.args]()
-    - [sttask.Task.output]()
-  - [Schedule]()
-    - [sttask.Schedule.name]()
-    - [sttask.Schedule.update]()
-    - [sttask.Schedule.paused]()
-    - [sttask.Schedule.args]()
-    - [sttask.Schedule.time]()
-  - [sttask.end: int]()
-  - [sttask.pause: int]()
-- [utils]()
-  - [sttask.utils.convert(task, \*, schedule_time = 0)]()
+  - [Task](#sttask.task)
+    - [sttask.Task.name](#sttask.task.name)
+    - [sttask.Task.update](#sttask.task.update)
+    - [sttask.Task.paused](#sttask.task.paused)
+    - [sttask.Task.args](#sttask.task.args)
+    - [sttask.Task.output](#sttask.task.output)
+  - [Schedule](#sttask.schedule)
+    - [sttask.Schedule.name](#sttask.schedule.name)
+    - [sttask.Schedule.update](#sttask.schedule.update)
+    - [sttask.Schedule.paused](#sttask.schedule.paused)
+    - [sttask.Schedule.args](#sttask.schedule.args)
+    - [sttask.Schedule.time](#sttask.schedule.time)
+  - [sttask.end: int](#sttask.end)
+  - [sttask.pause: int](#sttask.pause)
+- [utils](#sttask.utils)
+  - [sttask.utils.convert(task, \*, schedule_time: int = 0)](#sttask.utils.convert)
 
 <a name="sttask"></a>
 ## sttask
+
+|   Value   | Type | Default |
+|:---------:|:----:|:-------:|
+| TaskOwner | type | *class* |
+|    Task   | type | *class* |
+|  Schedule | type | *class* |
+|    end    |  int |    1    |
+|   pause   |  int |    2    |
+
 The main module
+
 <a name="sttask.taskowner"></a>
 ### sttask.TaskOwner
+
+|        Value        |   Type   |   Default  |
+|:-------------------:|:--------:|:----------:|
+|        tasks        |   list   |     []     |
+|      scheduled      |   list   |     []     |
+|         add         | function | *function* |
+|      task_list      | function | *function* |
+|    schedule_list    | function | *function* |
+|        update       | function | *function* |
+|      grab_task      | function | *function* |
+|    grab_schedule    | function | *function* |
+|       schedule      | function | *function* |
+|         play        | function | *function* |
+|        pause        | function | *function* |
+|       name_set      | function | *function* |
+|      update_set     | function | *function* |
+|       args_set      | function | *function* |
+|     grab_output     | function | *function* |
+|       pop_task      | function | *function* |
+|    play_schedule    | function | *function* |
+|    pause_schedule   | function | *function* |
+|  name_set_schedule  | function | *function* |
+| update_set_schedule | function | *function* |
+|  args_set_schedule  | function | *function* |
+|     pop_schedule    | function | *function* |
+
 A class for storing and managing tasks.
     
 <a name="sttask.taskowner.tasks"></a>
@@ -320,3 +356,116 @@ Raises a `TypeError` if `schedule` is not of `str` type.
 
 <a name="sttask.task"></a>
 ### sttask.Task
+
+|  Value |   Type   | Default |
+|:------:|:--------:|:-------:|
+|  name  |    str   | *input* |
+| update | function | *input* |
+| paused |    int   | *input* |
+|  args  |   tuple  | *input* |
+| output |          |         |
+
+A class for storing infomation about tasks.
+
+<a name="sttask.task.name"></a>
+#### sttask.task.name: str
+
+A string for storing the name of this task.
+
+<a name="sttask.task.update"></a>
+#### sttask.task.update(self: [sttask.Task](#sttask.task), args: tuple)
+
+A function with no set action. Called whenever [sttask.TaskOwner.update](#sttask.taskowner.update) is called.\
+`self` is the [Task](#sttask.task) object that this function belongs to.\
+`args` is a tuple of all the arguments passed to this function.
+
+<a name="sttask.task.paused"></a>
+#### sttask.task.paused: int
+
+An int for storing if the task is paused or not.\
+If it is a true value the task is paused.\
+If not, it's not paused.
+
+<a name="sttask.task.args"></a>
+#### sttask.task.args: tuple
+
+A tuple for storing all the arguments passed to the [self.update](#sttask.task.update) function.
+
+<a name="sttask.task.output"></a>
+#### sttask.task.output
+
+A variable with no set value, used as an output for [self.update](#sttask.task.update).
+
+<a name="sttask.schedule"></a>
+### sttask.Schedule
+
+|  Value |   Type   | Default |
+|:------:|:--------:|:-------:|
+|  name  |    str   | *input* |
+| update | function | *input* |
+| paused |    int   | *input* |
+|  args  |   tuple  | *input* |
+|  time  |    int   | *input* |
+
+A class for storing infomation about schedules.
+
+<a name="sttask.schedule.name"></a>
+#### sttask.schedule.name: str
+
+A string for storing the name of this task.
+
+<a name="sttask.schedule.update"></a>
+#### sttask.schedule.update(self: [sttask.Task](#sttask.task), args: tuple)
+
+A function with no set action. Called whenever [sttask.TaskOwner.update](#sttask.taskowner.update) is called.\
+`self` is the [Task](#sttask.task) object that this function belongs to.\
+`args` is a tuple of all the arguments passed to this function.
+
+<a name="sttask.schedule.paused"></a>
+#### sttask.schedule.paused: int
+
+An int for storing if the task is paused or not.\
+If it is a true value the task is paused.\
+If not, it's not paused.
+
+<a name="sttask.schedule.args"></a>
+#### sttask.schedule.args: tuple
+
+A tuple for storing all the arguments passed to the [self.update](#sttask.schedule.update) function.
+
+<a name="sttask.schedule.time"></a>
+#### sttask.schedule.output
+
+An int that gets decremented whenever [sttask.TaskOwner.update](#sttask.taskowner.update) is called.\
+When it reached 0, the [parent](sttask.schedule) gets turned into a [sttask.Task](#sttask.task)
+
+<a name="sttask.end"></a>
+## sttask.end: int
+
+If a task returns this in [sttask.Task.update](#sttask.task.update), the task is deleted.
+
+<a name="sttask.pause"></a>
+## sttask.pause: int
+
+If a task returns this in [sttask.Task.update](#sttask.task.update), the task is paused.
+
+<a name="sttask.utils"></a>
+# sttask.utils
+
+|  Value  |   Type   |   Default  |
+|:-------:|:--------:|:----------:|
+| convert | function | *function* |
+
+<a name="sttask.utils.convert"></a>
+## sttask.utils.convert(task, *, schedule_time: int = 0)
+
+| Argument      | Type | Default |
+|---------------|------|---------|
+|`task`         |      |         |
+|`*`            |      |         |
+|`schedule_time`|`int` |`0`      |
+
+If `task` is of type [sttask.Task](#sttask.task) then convert it to an [sttask.Schedule](sttask.schedule) with the time of `schedule_time` and return it.
+If `task` is of type [sttask.Schedule](sttask.schedule) then convert it to an [sttask.Task](#sttask.task).
+If neither, raise a `TypeError`.
+If `schedule_time` is not of `int` type, raise a `TypeError`.
